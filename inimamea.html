@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<title>Ștefania 💖 Costi</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+        color: white;
+    }
+
+    .container {
+        text-align: center;
+        z-index: 2;
+    }
+
+    button {
+        padding: 15px 35px;
+        font-size: 18px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: 0.15s;
+    }
+
+    #playBtn {
+        background: #ff2f6e;
+        color: white;
+    }
+
+    img {
+        width: 220px;
+        border-radius: 20px;
+        margin: 20px 0;
+    }
+
+    .buttons {
+        position: relative;
+        width: 300px;
+        height: 150px;
+        margin: auto;
+    }
+
+    #yes {
+        position: absolute;
+        background: #ff2f6e;
+        color: white;
+    }
+
+    #no {
+        position: absolute;
+        bottom: 0;
+        left: 90px;
+        background: white;
+        color: #ff2f6e;
+    }
+
+    /* INIMI */
+    .heart {
+        position: fixed;
+        top: -10px;
+        font-size: 20px;
+        animation: fall linear infinite;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translateY(110vh);
+        }
+    }
+</style>
+</head>
+<body>
+
+<!-- MUZICĂ -->
+<iframe id="music" width="0" height="0"
+src="https://www.youtube.com/embed/kPa7bsKwL-c?enablejsapi=1"
+frameborder="0"
+allow="autoplay">
+</iframe>
+
+<!-- PAS 1 -->
+<div class="container" id="step1">
+    <h1>🎵 Regula #1</h1>
+    <p>Apasă play ca să poți continua 💖</p>
+    <button id="playBtn" onclick="playMusic()">Play Music ▶️</button>
+</div>
+
+<!-- PAS 2 -->
+<div class="container" id="step2" style="display:none;">
+    <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+    <h1>Ștefania 💖 Costi</h1>
+    <h2>Vrei să fii Valentine-ul meu? 🥺🌹</h2>
+
+    <div class="buttons">
+        <button id="yes" onclick="yesWin()" onmouseover="moveYes()">DA 💘</button>
+        <button id="no" onclick="noClick()">NU 🙈</button>
+    </div>
+</div>
+
+<script>
+    let speed = 200;
+
+    function playMusic() {
+        const iframe = document.getElementById("music");
+        iframe.src += "&autoplay=1&loop=1&playlist=kPa7bsKwL-c";
+        document.getElementById("step1").style.display = "none";
+        document.getElementById("step2").style.display = "block";
+        startHearts();
+    }
+
+    function moveYes() {
+        const yes = document.getElementById("yes");
+        const maxX = 220;
+        const maxY = 100;
+
+        yes.style.left = Math.random() * maxX + "px";
+        yes.style.top = Math.random() * maxY + "px";
+
+        speed -= 10;
+        if (speed < 60) speed = 60;
+    }
+
+    function noClick() {
+        alert("😈 Răspuns greșit. Încearcă din nou!");
+    }
+
+    function yesWin() {
+        document.body.innerHTML = `
+        <div style="
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+            text-align:center;
+            color:white;
+            font-family:Arial;">
+            <div>
+                <h1>😍 AI CÂȘTIGAT! 😍</h1>
+                <h2>Știam eu că vei spune DA 💖</h2>
+                <p>Te iubesc enorm, Ștefania 🌹</p>
+                <p>— Costi</p>
+            </div>
+        </div>`;
+    }
+
+    // INIMI CARE CAD
+    function startHearts() {
+        setInterval(() => {
+            const heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+            document.body.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 5000);
+        }, 250);
+    }
+</script>
+
+</body>
+</html>
